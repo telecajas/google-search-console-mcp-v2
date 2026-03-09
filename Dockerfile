@@ -13,6 +13,7 @@ COPY . .
 RUN mkdir -p /app/data
 
 # Environment variables
+ENV PORT=8000
 ENV DATABASE_PATH=/app/data/gsc_tokens.db
 
 # Railway assigns PORT dynamically - don't hardcode it
