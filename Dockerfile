@@ -12,12 +12,12 @@ COPY . .
 # Create data directory for SQLite
 RUN mkdir -p /app/data
 
+# Make start script executable
+RUN chmod +x start.sh
+
 # Environment variables
 ENV PORT=8000
 ENV DATABASE_PATH=/app/data/gsc_tokens.db
 
-# Railway assigns PORT dynamically - don't hardcode it
-# The CMD uses the PORT env var that Railway provides
-
-# Run with gunicorn, binding to Railway's PORT
-CMD gunicorn gsc_server_remote:app -w 2 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:${PORT:-8000}
+# Run with start.sh which handles PORT expansion
+CMD ["sh", "start.sh"]
