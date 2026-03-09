@@ -490,16 +490,16 @@ async def home():
         <div class="container">
             <header>
                 <a href="/" class="logo">
-                    <span>🔍</span> GSC MCP
+                    <span>ð</span> GSC MCP
                 </a>
             </header>
             
             <section class="hero">
-                <span class="badge">✨ Now with OAuth 2.0</span>
+                <span class="badge">â¨ Now with OAuth 2.0</span>
                 <h1>Connect Claude AI to<br>Google Search Console</h1>
                 <p class="subtitle">
                     Analyze your SEO data through natural conversations. 
-                    No API keys to manage—just sign in with Google and start chatting.
+                    No API keys to manageâjust sign in with Google and start chatting.
                 </p>
                 <a href="/oauth/login" class="btn-primary">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -514,32 +514,32 @@ async def home():
             
             <section class="features">
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">ð</div>
                     <h3>Search Analytics</h3>
                     <p>Get detailed insights into your search performance, top queries, and click-through rates.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon">ð¯</div>
                     <h3>Keyword Opportunities</h3>
                     <p>Discover keywords where you're ranking but could improve with optimization.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
+                    <div class="feature-icon">ð</div>
                     <h3>URL Inspection</h3>
                     <p>Check indexing status, crawl errors, and rich results for any page.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🗺️</div>
+                    <div class="feature-icon">ðºï¸</div>
                     <h3>Sitemap Management</h3>
                     <p>Submit, monitor, and manage your sitemaps directly through Claude.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📱</div>
+                    <div class="feature-icon">ð±</div>
                     <h3>Device Comparison</h3>
                     <p>Compare mobile vs desktop performance and identify optimization opportunities.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📤</div>
+                    <div class="feature-icon">ð¤</div>
                     <h3>Export Data</h3>
                     <p>Export your analytics data to CSV or JSON for further analysis.</p>
                 </div>
@@ -572,7 +572,7 @@ async def home():
             </section>
             
             <footer>
-                <p>Created by <a href="https://aminforoutan.com" target="_blank">Amin Foroutan</a> • 
+                <p>Created by <a href="https://aminforoutan.com" target="_blank">Amin Foroutan</a> â¢ 
                 <a href="https://github.com/AminForou/google-search-console-mcp-v2" target="_blank">GitHub</a></p>
             </footer>
         </div>
@@ -602,6 +602,7 @@ async def oauth_login(request: Request):
     save_oauth_state(state)
     
     flow = get_oauth_flow()
+    flow.autogenerate_code_verifier = False  # Disable PKCE
     authorization_url, _ = flow.authorization_url(
         access_type='offline',
         include_granted_scopes='true',
@@ -793,13 +794,13 @@ async def oauth_callback(request: Request, code: str = None, state: str = None, 
         <body>
             <div class="container">
                 <div class="success-header">
-                    <div class="success-icon">✅</div>
+                    <div class="success-icon">â</div>
                     <h1>Authentication Successful!</h1>
                     <p class="email">Logged in as: {email}</p>
                 </div>
                 
                 <div class="card">
-                    <h3>🔑 Your API Key</h3>
+                    <h3>ð Your API Key</h3>
                     <div class="api-key">
                         {user_id}
                         <button class="copy-btn" onclick="navigator.clipboard.writeText('{user_id}')">Copy</button>
@@ -807,7 +808,7 @@ async def oauth_callback(request: Request, code: str = None, state: str = None, 
                 </div>
                 
                 <div class="card">
-                    <h3>⚙️ Setup Instructions</h3>
+                    <h3>âï¸ Setup Instructions</h3>
                     <div class="steps">
                         <div class="step">
                             <h4>Open Claude Desktop Config</h4>
@@ -845,7 +846,7 @@ async def oauth_callback(request: Request, code: str = None, state: str = None, 
                 </div>
                 
                 <div class="warning">
-                    <span>⚠️</span>
+                    <span>â ï¸</span>
                     <div>
                         <strong>Keep your API key secret!</strong>
                         <p>Anyone with this key can access your Google Search Console data.</p>
@@ -1119,7 +1120,7 @@ async def find_keyword_opportunities(
         
         opportunities.sort(key=lambda x: x["potential"], reverse=True)
         
-        lines = [f"# 🎯 Keyword Opportunities: {site_url}"]
+        lines = [f"# ð¯ Keyword Opportunities: {site_url}"]
         lines.append(f"*Last {days} days | Position {min_position}-{max_position} | Min {min_impressions} impressions*\n")
         
         if not opportunities:
@@ -1171,7 +1172,7 @@ async def get_top_pages(site_url: str, days: int = 28, limit: int = 20) -> str:
         if not response.get("rows"):
             return f"No page data found for {site_url}"
         
-        lines = [f"# 📊 Top Pages: {site_url}\n*Last {days} days*\n"]
+        lines = [f"# ð Top Pages: {site_url}\n*Last {days} days*\n"]
         lines.append("| # | Page | Clicks | Impressions | CTR | Position |")
         lines.append("|---|------|--------|-------------|-----|----------|")
         
@@ -1217,14 +1218,14 @@ async def get_device_comparison(site_url: str, days: int = 28) -> str:
         if not response.get("rows"):
             return f"No device data found for {site_url}"
         
-        lines = [f"# 📱 Device Comparison: {site_url}\n*Last {days} days*\n"]
+        lines = [f"# ð± Device Comparison: {site_url}\n*Last {days} days*\n"]
         
         total_clicks = sum(row.get("clicks", 0) for row in response.get("rows", []))
         
         lines.append("| Device | Clicks | Share | Impressions | CTR | Position |")
         lines.append("|--------|--------|-------|-------------|-----|----------|")
         
-        icons = {"MOBILE": "📱", "DESKTOP": "🖥️", "TABLET": "📲"}
+        icons = {"MOBILE": "ð±", "DESKTOP": "ð¥ï¸", "TABLET": "ð²"}
         
         for row in response.get("rows", []):
             device = row.get("keys", ["Unknown"])[0]
@@ -1272,7 +1273,7 @@ async def get_country_breakdown(site_url: str, days: int = 28, limit: int = 15) 
         if not response.get("rows"):
             return f"No country data found for {site_url}"
         
-        lines = [f"# 🌍 Country Breakdown: {site_url}\n*Last {days} days*\n"]
+        lines = [f"# ð Country Breakdown: {site_url}\n*Last {days} days*\n"]
         
         total_clicks = sum(row.get("clicks", 0) for row in response.get("rows", []))
         
@@ -1317,7 +1318,7 @@ async def inspect_url(site_url: str, page_url: str) -> str:
         index_status = inspection.get("indexStatusResult", {})
         
         verdict = index_status.get("verdict", "UNKNOWN")
-        emoji = "✅" if verdict == "PASS" else "❌"
+        emoji = "â" if verdict == "PASS" else "â"
         
         lines = [
             f"# URL Inspection: {page_url}\n",
@@ -1362,7 +1363,7 @@ async def get_sitemaps(site_url: str) -> str:
         for sitemap in sitemaps.get("sitemap", []):
             path = sitemap.get("path", "Unknown").split("/")[-1][:35]
             errors = sitemap.get("errors", 0)
-            status = "✅" if errors == 0 else f"⚠️ {errors} errors"
+            status = "â" if errors == 0 else f"â ï¸ {errors} errors"
             
             url_count = "N/A"
             if "contents" in sitemap:
@@ -1393,7 +1394,7 @@ async def submit_sitemap(site_url: str, sitemap_url: str) -> str:
         
         service.sitemaps().submit(siteUrl=site_url, feedpath=sitemap_url).execute()
         
-        return f"✅ Sitemap submitted: {sitemap_url}\n\nGoogle will process it shortly."
+        return f"â Sitemap submitted: {sitemap_url}\n\nGoogle will process it shortly."
     except Exception as e:
         return f"Error submitting sitemap: {str(e)}"
 
@@ -1415,9 +1416,9 @@ async def request_indexing(url: str) -> str:
         response = service.urlNotifications().publish(body=body).execute()
         
         lines = [
-            f"# ✅ Indexing Request Submitted\n",
+            f"# â Indexing Request Submitted\n",
             f"**URL:** {url}",
-            "\n## ⚠️ Note",
+            "\n## â ï¸ Note",
             "The Indexing API works best for JobPosting and BroadcastEvent pages.",
             "For other pages, Google may not immediately act on this request."
         ]
@@ -1426,7 +1427,7 @@ async def request_indexing(url: str) -> str:
     except HttpError as e:
         if e.resp.status == 403:
             return (
-                "❌ **Permission Denied**\n\n"
+                "â **Permission Denied**\n\n"
                 "The Indexing API requires:\n"
                 "1. Enable the Indexing API in Google Cloud Console\n"
                 "2. Verify site ownership in Search Console\n"
@@ -1589,7 +1590,7 @@ if __name__ == "__main__":
     import uvicorn
     
     print("\n" + "=" * 60)
-    print("🚀 GSC MCP Remote Server v2.0")
+    print("ð GSC MCP Remote Server v2.0")
     print("=" * 60)
     print("\nRequired environment variables:")
     print("  GOOGLE_CLIENT_ID     - Google OAuth client ID")
