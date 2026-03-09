@@ -3,5 +3,6 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
+startCommand = "sh start.sh"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
